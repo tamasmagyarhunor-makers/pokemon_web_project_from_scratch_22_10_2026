@@ -21,6 +21,16 @@ def get_emoji():
     # These placeholders are replaced with the values we pass in as arguments
     return render_template('emoji.html', emoji=':)')
 
+@app.route('/pokemons', methods=['GET'])
+def get_pokemons():
+    connection = get_flask_database_connection(app)
+
+    poke_repo = PokemonRepository(connection)
+
+    pokemons = poke_repo.all()
+
+    return ", ".join(pokemons)
+
 # This imports some more example routes for you to see how they work
 # You can delete these lines if you don't need them.
 from example_routes import apply_example_routes
